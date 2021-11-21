@@ -19,4 +19,17 @@ Class Payment Extends CI_Controller {
     }
 
 
+
+    public function check(){
+        header("Content-Type: application/json");
+        $k ;
+        $this->load->model('paymentmodel');
+        $k['paymentCode'] = (int) $this->input->post('payment_code');
+        $k['productAdmin'] = $this->input->post('admin_code');
+        $t = $this->paymentmodel->checkAdminPrice($k['productAdmin']);
+         $k['adminPrice'] = (int) $t->harga ; 
+        $k['daprice'] = $this->dummydata($k['paymentCode']) ; 
+        echo json_encode($k)  ;
+
+    }
 }
