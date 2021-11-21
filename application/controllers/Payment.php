@@ -29,6 +29,7 @@ Class Payment Extends CI_Controller {
         $t = $this->paymentmodel->checkAdminPrice($k['productAdmin']);
          $k['adminPrice'] = (int) $t->harga ; 
         $k['daprice'] = $this->dummydata($k['paymentCode']) ; 
+        $k['totalprice'] = $this->dummydata($k['paymentCode'])['harga'] + (int) $t->harga ;
         echo json_encode($k)  ;
 
     }
