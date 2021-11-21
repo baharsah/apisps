@@ -27,10 +27,20 @@ Class Payment Extends CI_Controller {
         $k['paymentCode'] = (int) $this->input->post('payment_code');
         $k['productAdmin'] = $this->input->post('admin_code');
         $t = $this->paymentmodel->checkAdminPrice($k['productAdmin']);
-         $k['adminPrice'] = (int) $t->harga ; 
+        if( is_null($t)){
+            $k["code"] = 404 ;
+            $k['message'] = "Produk ini memiliki harga absolut. Silahkan gunakan fitur Topup atau hubungi <call> untuk informasi lebih lanjut";
+        }else{
+        $k['adminPrice'] = (int) $t->harga ;
         $k['daprice'] = $this->dummydata($k['paymentCode']) ; 
         $k['totalprice'] = $this->dummydata($k['paymentCode'])['harga'] + (int) $t->harga ;
-        echo json_encode($k)  ;
+    }
+    echo json_encode($k)  ;
+
+
+    }
+
+    public function report(){
 
     }
 }
