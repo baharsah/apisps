@@ -53,6 +53,12 @@ Class Payment Extends CI_Controller {
 
     }
 
+    public function sal(){
+        header("Content-Type: application/json");
+        $this->load->model('paymentmodel');
+        echo json_encode($this->paymentmodel->checkSaldo($this->input->post('user')));
+    }
+
 
 
     public function checkstandard(){
@@ -88,7 +94,7 @@ Class Payment Extends CI_Controller {
         }else{
         $k['adminPrice'] = (int) $t->harga ;
         $k['daprice'] = $this->dummydata($k['paymentCode']) ; 
-        $k['totalprice'] = $this->dummydata($k['paymentCode'])['harga'] + (int) $t->harga ;
+        $k['totalprice'] = ((int) $this->dummydata($k['paymentCode'])['harga'] + (int) $t->harga) ;
     }
     echo json_encode($k)  ;
 
