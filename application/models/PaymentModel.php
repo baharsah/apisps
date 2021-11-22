@@ -44,7 +44,7 @@ Class PaymentModel Extends CI_Model {
             'tbladmin_title' => $kodeadmin,
             'tblreport_idtblreport' => $this->randToIDReport($rand),
             'identifier' => $namaproduct." ".$kodeadmin,
-            'nama' => $namaproduct
+            'name' => $namaproduct
 
         );
 
