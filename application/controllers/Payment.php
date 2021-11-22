@@ -45,11 +45,13 @@ Class Payment Extends CI_Controller {
         // Cek Saldo
          $this->sal = $this->paymentmodel->checkSaldo((int) $this->input->post('user'))->deposit;
          //cek produk
-         $this->product = $this->paymentmodel->showProduct((int) $this->input->post('product_code'));
+        //  $this->product = $this->paymentmodel->showProduct((int) $this->input->post('product_code'));
+        // ambil dummydata
+        $d = $this->dummydata($this->input->post('payment_code'));
          // Check biaya admin 
-         $this->admin = $this->paymentmodel->checkAdminPrice($this->paymentmodel->showProduct((int) $this->input->post('product_code'))->idadmin , 0);
+         $this->admin = $this->paymentmodel->checkAdminPrice($this->input->post('admin_code') ,  1);
          //tambah report
-        echo json_encode($this->paymentmodel->publishReport(1, (int) $this->input->post('user') , $this->product->idtblproduct , $this->sal , (int)($this->sal - ((int) $this->product->harga + (int) $this->admin->harga))  , $this->product->harga , $this->admin->harga , (string) $this->product->nama." ".(string) $this->input->post('payment_code') , rand(1,99999) , $this->admin->title));
+        echo json_encode($this->paymentmodel->publishReport(2, (int) $this->input->post('user') , NULL , $this->sal , (int)($this->sal - ((int) $d['harga'] + (int) $this->admin->harga))  , $d['harga'] , $this->admin->harga , (string) $d['nama']." ".(string) $this->input->post('payment_code') , rand(1,99999) , $this->admin->title));
 
     }
 
